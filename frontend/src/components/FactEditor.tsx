@@ -47,7 +47,7 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
 
     return (
         <Container className="mt-4">
-            <h3>Fact Editor</h3>
+            <h3>Add a Fact</h3>
 
             <Form className="my-3">
                 <Row>
