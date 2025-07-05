@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import FactEditor from './components/FactEditor';
+import ChatWidget from './components/ChatWidget';
 
 function App() {
-  const handleFactsSaved = (facts: string[]) => {
-    console.log("Saved facts:", facts);
-  };
+  const [facts, setFacts] = useState<string[]>([]);
 
   return (
-    <div>
-      <FactEditor onSave={handleFactsSaved} />
-    </div>
+    <>
+      <FactEditor onSave={setFacts} />
+      <ChatWidget facts={facts} />
+    </>
   );
 }
 

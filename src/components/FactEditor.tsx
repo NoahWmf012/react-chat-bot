@@ -69,7 +69,7 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
 
             <ListGroup className="mb-3">
                 {facts.map((fact, index) => (
-                    <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center">
+                    <ListGroup.Item key={fact + '-' + index} className="d-flex justify-content-between align-items-center">
                         <span>{fact}</span>
                         <div>
                             <Button
