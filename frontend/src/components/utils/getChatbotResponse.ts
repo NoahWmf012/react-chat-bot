@@ -1,4 +1,6 @@
 export async function getChatbotResponse(facts: string[], question: string): Promise<string> {
+   const apiKey = process.env.OPENAI_API_KEY;
+   console.log("apiKey", apiKey);
   const messages = [
     {
       role: 'system',
@@ -13,7 +15,7 @@ export async function getChatbotResponse(facts: string[], question: string): Pro
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${process.env.VITE_OPENAI_API_KEY}`,
+      'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -23,5 +25,6 @@ export async function getChatbotResponse(facts: string[], question: string): Pro
   });
 
   const data = await res.json();
+  console.log("data", data);
   return data.choices?.[0]?.message?.content ?? 'Sorry, I could not generate a response.';
 }
