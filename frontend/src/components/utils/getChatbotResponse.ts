@@ -1,5 +1,5 @@
 export async function getChatbotResponse(facts: string[], question: string): Promise<string> {
-  const res  = await fetch(`${process.env.SERVER_URL}/api/chat`, {
+  const res  = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

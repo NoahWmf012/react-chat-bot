@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Offcanvas, Form, InputGroup, Spinner } from 'react-bootstrap';
 import { getChatbotResponse } from './utils/getChatbotResponse';
-
-interface ChatWidgetProps {
-    facts: string[];
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 interface MessageType {
     from: 'user' | 'bot';
     text: string;
 }
 
-const ChatWidget: React.FC<ChatWidgetProps> = ({ facts }) => {
+const ChatWidget = () => {
+    const facts = useSelector((state: RootState) => state.facts);
+
     const [show, setShow] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<MessageType[]>([]);
@@ -66,8 +66,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ facts }) => {
                     <InputGroup>
                         <Form.Control
                             placeholder="Ask a question..."
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            onBlur={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                         />
                         <Button onClick={handleSend}>Send</Button>

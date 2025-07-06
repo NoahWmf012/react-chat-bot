@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Form, ListGroup, Container, Row, Col, Alert } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { setFacts } from '../redux/slices/factsSlice';
 
-interface FactEditorProps {
-    onSave: (facts: string[]) => void;
-}
 
-const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
-    const [facts, setFacts] = useState<string[]>([]);
+const FactEditor = () => {
+    const facts = useSelector((state: RootState) => state.facts);
     const [inputValue, setInputValue] = useState('');
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
-    const [showSavedAlert, setShowSavedAlert] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleAddOrUpdate = () => {
         if (!inputValue.trim()) return;
@@ -17,10 +18,10 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
         if (editingIndex !== null) {
             const updated = [...facts];
             updated[editingIndex] = inputValue;
-            setFacts(updated);
+            dispatch(setFacts(updated));
             setEditingIndex(null);
         } else {
-            setFacts([...facts, inputValue]);
+            dispatch(setFacts([...facts, inputValue]));
         }
 
         setInputValue('');
@@ -34,15 +35,9 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
     const handleDelete = (index: number) => {
         const updated = [...facts];
         updated.splice(index, 1);
-        setFacts(updated);
+        dispatch(setFacts(updated));
         setEditingIndex(null);
         setInputValue('');
-    };
-
-    const handleSave = () => {
-        onSave(facts);
-        setShowSavedAlert(true);
-        setTimeout(() => setShowSavedAlert(false), 2000);
     };
 
     return (
@@ -55,8 +50,7 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
                         <Form.Control
                             type="text"
                             placeholder="Enter a fact..."
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
+                            onBlur={(e) => setInputValue(e.target.value)}
                         />
                     </Col>
                     <Col xs={3}>
@@ -91,14 +85,8 @@ const FactEditor: React.FC<FactEditorProps> = ({ onSave }) => {
                     </ListGroup.Item>
                 ))}
             </ListGroup>
-
-            <Button variant="success" onClick={handleSave}>
-                Save Facts
-            </Button>
-
-            {showSavedAlert && <Alert variant="success" className="mt-3">Facts saved!</Alert>}
         </Container>
     );
 };
 
-export default FactEditor;
+export default React.memo(FactEditor);
