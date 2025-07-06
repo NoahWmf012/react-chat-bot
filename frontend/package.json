@@ -27,9 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run git-push && npm run build",
-    "deploy": "gh-pages -d build",
-    "git-push": "git add . && git commit -m \"Auto deploy commit\" && git push"
+    "predeploy": "npm run git-push",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://noahwmf012.github.io/react-chat-bot/"
 }
