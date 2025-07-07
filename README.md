@@ -4,6 +4,15 @@ A web-based chatbot that answers questions based only on a custom list of facts 
 
 ## Getting started
 
+### Environment variables
+#### Backend
+``OPENAI_API_KEY``
+
+``PORT``
+
+#### Frontend
+``REACT_APP_SERVER_URL``
+
 ### Install dependencies
 ```pnpm install```
 
